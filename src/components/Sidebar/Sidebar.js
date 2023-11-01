@@ -125,7 +125,7 @@ const RootSideBar = ({
                     paddingLeft: "0",
                   }}
                 >
-                  {navItemList.allSanityNavItems.nodes &&
+                  {navItemList?.allSanityNavItems.nodes &&
                     Array.isArray(navItemList.allSanityNavItems.nodes) &&
                     navItemList.allSanityNavItems.nodes.map((item, index) => (
                       <ListItem
