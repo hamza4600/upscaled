@@ -4,8 +4,6 @@ import Container from "../components/Container/Container";
 import GraphQLErrorList from "../components/graphql-error-list";
 import BlogPost from "../components/BlogPost/BlogPost";
 import SEO from "../components/SEO/SEO";
-import Layout from "../containers/layout";
-import { toPlainText } from "../lib/helpers";
 
 export const query = graphql`
   query BlogPostTemplateQuery($id: String!) {
@@ -34,12 +32,26 @@ export const query = graphql`
         }
       }
     }
+    allSanityNavItems {
+      totalCount
+      nodes {
+        title
+        href
+        description
+        id
+        slug {
+          current
+        }
+      }
+    }
   }
 `;
 
 const BlogPostTemplate = (props) => {
   const { data, errors } = props;
   const collection = data && data.collection;
+  const navItems = data.allSanityNavItems.nodes;
+  
   return (
     <>
       {errors && <SEO title="GraphQL Error" />}
@@ -55,7 +67,7 @@ const BlogPostTemplate = (props) => {
           <GraphQLErrorList errors={errors} />
         </Container>
       )}
-      {collection && <BlogPost {...collection} />}
+      {collection && <BlogPost collection={collection} navItems={navItems} {...props} />}
     </>
   );
 };

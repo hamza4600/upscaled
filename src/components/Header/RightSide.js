@@ -124,7 +124,7 @@ const RightItem = ({ name, link, description, isActive }) => {
 };
 
 const RightSide = ({ navIcon, navItemList }) => {
-  const router = useLocation();
+  const location = useLocation();
 
   const isActive = (name) => {
     return location.pathname.split("/")[2] === name.toLowerCase();
@@ -134,11 +134,11 @@ const RightSide = ({ navIcon, navItemList }) => {
     <RightSideWrapper>
       <LogoWrapepr>
         <Link href="/">
-          {navIcon ? <img src={navIcon} alt="logo" /> : <DummyIcon />}
+          {navIcon ? <img src={navIcon} alt="logo" loading="lazy" /> : <DummyIcon />}
         </Link>
       </LogoWrapepr>
       <div className="row">
-        {navItemList?.allSanityNavItems.nodes.map((item) => (
+        {navItemList?.map((item) => (
           <RightItem
             key={item.title}
             name={item.title}

@@ -57,7 +57,7 @@ const Layout = ({
           <LayoutWrapper>
             <RootSideBar
               title={sideBarTitle}
-              listArray={sideBarItems || navItems?.allSanityNavItems.nodes}
+              listArray={sideBarItems || navItems}
               parentSlug={parentSlug}
               showSideMenu={showSideMenu}
               closeSideMenu={toggleSideMenu}

@@ -76,12 +76,12 @@ const Container = styled.div`
 
 const ImagWrapper = styled.div`
   width: 50%;
-  height: 100%;
+  height: 200px;
 
   img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
   }
 
   @media (max-width: 768px) {
@@ -99,7 +99,7 @@ const SectionHeroModule = ({ title, subtitle, image }) => {
         </div>
         {image ? (
           <ImagWrapper>
-            <img src={image} alt="" />
+            <img src={image} alt={title} loading="lazy" />
           </ImagWrapper>
         ) : null}
       </Container>

@@ -104,7 +104,7 @@ const GridCrad = ({ img, title, description, slug, collectionSlug }) => {
     >
       <BlogCard className="grid-card">
         <ImgWrapper className="grid-card__img">
-          <img src={img} alt={title} width={40} height={40} />
+          <img src={img} alt={title} width={40} height={40} loading="lazy" />
         </ImgWrapper>
         <TextWrapper className="grid-card__content">
           <h3 className="grid-card__title">{title}</h3>

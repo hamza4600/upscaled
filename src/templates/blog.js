@@ -3,8 +3,6 @@ import { graphql } from "gatsby";
 import Container from "../components/Container/Container";
 import GraphQLErrorList from "../components/graphql-error-list";
 import SEO from "../components/SEO/SEO";
-import Layout from "../containers/layout";
-import { toPlainText } from "../lib/helpers";
 import BlogContentSection from "../components/BlogContent";
 
 export const query = graphql`
@@ -41,12 +39,25 @@ export const query = graphql`
         _key
       }
     }
+    allSanityNavItems {
+      totalCount
+      nodes {
+        title
+        href
+        description
+        id
+        slug {
+          current
+        }
+      }
+    }
   }
 `;
 
 const BlogPostTemplate = (props) => {
   const { data, errors } = props;
   const blog = data && data.blog;
+  const navItems = data.allSanityNavItems.nodes;
 
   return (
     <>
@@ -63,7 +74,7 @@ const BlogPostTemplate = (props) => {
           <GraphQLErrorList errors={errors} />
         </Container>
       )}
-      {blog && <BlogContentSection {...blog} />}
+      {blog && <BlogContentSection blog={blog} navItems={navItems} {...props} />}
     </>
   );
 };

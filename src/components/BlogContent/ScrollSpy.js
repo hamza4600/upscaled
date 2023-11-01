@@ -95,10 +95,10 @@ class Scrollspy extends React.Component {
   };
 
   scrollTo(element) {
-    const navHeight = document.getElementById("nav11").offsetHeight;
-    const offset = element.offsetTop - navHeight;
+    console.log(element , "element");
+
     window.scrollTo({
-      top: offset,
+      top:  60,
       behavior: "smooth",
     });
   }
@@ -136,13 +136,14 @@ class Scrollspy extends React.Component {
       itemContainerClassName,
       activeItemClassName,
       itemClassName,
+      ids
     } = this.props;
-
+    console.log(this.props , "SSS");
     const activeItem = this.state.items.find((item) => item.inView);
     console.log(activeItem);
     return (
       <ul className={itemContainerClassName}>
-        {this.state.items.map((item, k) => {
+        {ids.map((item, k) => {
           return (
             <Li
               className={
@@ -152,17 +153,17 @@ class Scrollspy extends React.Component {
               onClick={(e) => {
                 e.preventDefault();
                 this.scrollTo(item.element);
-                window.history.pushState(null, "", `#${item.element.id}`);
+                window.history.pushState(null, "", `#${item.id}`);
               }}
               isActive={item.inView ? "true" : "false"}
               aeria-current={item.inView ? "true" : "false"}
             >
               <a
-                data-scroll-to={`#${item.element.id}`}
-                href={`#${item.element.id}`}
-                title={item.element.innerText}
+                data-scroll-to={`#${item.id}`}
+                href={`#${item.id}`}
+                title={item.title}
               >
-                {item.element.innerText}
+                {item.title}
               </a>
             </Li>
           );

@@ -1,9 +1,6 @@
 import React, { useEffect } from "react";
-import { graphql, navigate } from "gatsby";
-import GraphQLErrorList from "../components/graphql-error-list";
+import {  navigate } from "gatsby";
 import SEO from "../components/SEO/SEO";
-import LayoutContainer from "../containers/layout";
-import { ThemeContext } from "../styles/themeContext";
 
 const IndexPage = (props) => {
   console.log("props", props);
@@ -30,14 +27,14 @@ const IndexPage = (props) => {
   }, []);
 
   return (
-    <LayoutContainer>
+    <>
       <SEO
         title="Home Page"
         description={"Home Page"}
         lang={"en"}
         keywords={["hama"]}
       />
-    </LayoutContainer>
+    </>
   );
 };
 

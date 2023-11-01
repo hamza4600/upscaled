@@ -26,13 +26,16 @@ const RootSideBar = ({
   isCollection,
   subDropdown,
 }) => {
+
   const { width } = useWindos();
   const isTablet = width < 1024;
   const ref = useRef(null);
 
   const pathname = useLocation();
   const parts = pathname.pathname.split("/");
-  const slug = parts[parts.length - 1];
+  // const slug = parts[parts.length - 1];
+  // don,t add empty string in slug
+  const slug = parts[parts.length - 1] === "" ? parts[parts.length - 2] : parts[parts.length - 1];
   // if click outside of sidebar, close sidebar
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -61,13 +64,13 @@ const RootSideBar = ({
   const activeItem =
     Array.isArray(listArray) &&
     listArray?.find((item) => {
-      return item.slug.current === pathname.pathname.split("/")[3];
+      return item.slug.current === slug;
     });
 
   const activeItem1 =
     Array.isArray(navItemList) &&
     navItemList?.find((item) => {
-      return item.slug.current === pathname.pathname.split("/")[2];
+      return item.slug.current === slug;
     });
 
   return (
@@ -103,13 +106,14 @@ const RootSideBar = ({
                     <h2>{title}</h2>
                   </Title>
                 )}
-                <ul>
+                <ul id="5959">
                   {listArray?.map((item, index) => (
                     <ListItem
                       key={item._id}
                       href={item?.slug?.current}
                       label={item.title}
-                      isActived={activeItem?._id === item._id}
+                      // isActived={activeItem?._id === item._id}
+                      slug={slug}
                       parentSlug={parentSlug}
                     />
                   ))}
@@ -125,9 +129,9 @@ const RootSideBar = ({
                     paddingLeft: "0",
                   }}
                 >
-                  {navItemList?.allSanityNavItems.nodes &&
-                    Array.isArray(navItemList.allSanityNavItems.nodes) &&
-                    navItemList.allSanityNavItems.nodes.map((item, index) => (
+                  {navItemList &&
+                    Array.isArray(navItemList) &&
+                    navItemList.map((item, index) => (
                       <ListItem
                         key={item._id}
                         href={item?.slug?.current}

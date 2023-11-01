@@ -3,22 +3,12 @@ import styled from "styled-components";
 
 import { PortableText } from "@portabletext/react";
 
-import LayoutContainer from "../../containers/layout";
 import useWindos from "../../Hooks/useWindos";
+import { generateId } from "../../lib/helpers";
+import Layout from "../Layout/Layout";
 
 const AsideBar = lazy(() => import("./Asidebar"));
 const SectionHeroModule = lazy(() => import("../HeroSection"));
-
-export function generateId(text) {
-  const words = text.trim().split(/\s+/);
-  // Take the first 4 words
-  const first4Words = words.slice(0, 4);
-
-  // Join the words with hyphens, convert to lowercase, and return as an ID
-  const id = first4Words.join("-").toLowerCase();
-
-  return id;
-}
 
 const Root = styled.div`
   display: flex;
@@ -104,7 +94,7 @@ const ImgWrapper = styled.div`
 const CustomImage = ({ value }) => {
   return (
     <ImgWrapper>
-      <img src={value} alt="" width={769} height={224} />
+      <img src={value} alt="" width={769} height={224} loading="lazy" />
     </ImgWrapper>
   );
 };
@@ -117,14 +107,15 @@ const myPortableTextComponents = {
   },
 };
 
-const BlogContentSection = (props) => {
-  console.log(props, "PORTABLE TEXT");
-  const { title, body, description, mainImage } = props;
+const BlogContentSection = ({blog, navItems }) => {
+  
+  const { title, body, description, mainImage, collection, slug } = blog;
 
   const [h2Tags, setH2Tags] = useState([]);
   const ref = useRef(null);
   const { width } = useWindos();
   const isMobile = width < 768;
+  console.log(h2Tags , 'h2Tags')
 
   useEffect(() => {
     if (ref.current) {
@@ -158,7 +149,9 @@ const BlogContentSection = (props) => {
   }, []);
 
   return (
-    <LayoutContainer>
+    <Layout
+      navItems={navItems}
+    >
       <Suspense fallback={<div>Loading...</div>}>
         <SectionHeroModule
           title={title}
@@ -168,16 +161,16 @@ const BlogContentSection = (props) => {
       </Suspense>
       <Root>
         <BlogContainer ref={ref} className="blog-content">
-          <h1>{props.title}</h1>
+          <h1>{title}</h1>
           <PortableText value={body} serializers={myPortableTextComponents} />
         </BlogContainer>
         {!isMobile && (
           <Suspense fallback={<div>Loading...</div>}>
-            <AsideBar title="Table of Contents" contentArray={h2Tags} />
+            <AsideBar contentArray={h2Tags} />
           </Suspense>
         )}
       </Root>
-    </LayoutContainer>
+    </Layout>
   );
 };
 

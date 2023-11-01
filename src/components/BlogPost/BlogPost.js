@@ -1,6 +1,7 @@
 import React, { Suspense, lazy } from "react";
 import styled from "styled-components";
 import LayoutContainer from "../../containers/layout";
+import Layout from "../Layout/Layout";
 
 const SectionHeroModule = lazy(() => import("../HeroSection"));
 const ArticleGrid = lazy(() => import("../BlogGrid"));
@@ -59,10 +60,13 @@ const BlogPostStyles = styled.article`
   }
 `;
 
-function BlogPost(props) {
-  const { post, title, description, headerImage, slug } = props;
+function BlogPost({collection, navItems, ...props}) {
+  const { post, title, description, headerImage, slug } = collection;
+
   return (
-    <LayoutContainer>
+    <Layout
+      navItems={navItems}
+    >
       <BlogPostStyles>
         {headerImage && (
           <Suspense fallback={<div>Loading...</div>}>
@@ -77,7 +81,7 @@ function BlogPost(props) {
           <ArticleGrid articles={post} />
         </Suspense>
       </BlogPostStyles>
-    </LayoutContainer>
+    </Layout>
   );
 }
 

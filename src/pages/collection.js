@@ -1,17 +1,21 @@
 import React, { Suspense, lazy } from "react";
 import { graphql } from "gatsby";
-import LayoutContainer from "../containers/layout";
+import Layout from "../components/Layout/Layout";
+
 const ArticleGrid = lazy(() => import("../components/BlogGrid"));
 
 const CollectionPage = ({ data }) => {
   const posts = data.allSanityPost.edges.map(({ node }) => node);
+  const navItems = data.allSanityNavItems.nodes;
 
   return (
-    <LayoutContainer>
+    <Layout 
+      navItems={navItems}
+    >
       <Suspense fallback={<div>Loading...</div>}>
         <ArticleGrid articles={posts} />
       </Suspense>
-    </LayoutContainer>
+    </Layout>
   );
 };
 
@@ -31,6 +35,18 @@ export const query = graphql`
               url
             }
           }
+        }
+      }
+    }
+    allSanityNavItems {
+      totalCount
+      nodes {
+        title
+        href
+        description
+        id
+        slug {
+          current
         }
       }
     }
