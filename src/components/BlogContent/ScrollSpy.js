@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { throttle } from "../../lib/helpers";
 
 const Li = styled.li`
   position: relative;
@@ -32,104 +33,46 @@ const Li = styled.li`
   }
 `;
 
-const SPY_INTERVAL = 300;
-
 class Scrollspy extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      items: [],
+      currentSection: props.ids[0].id,
     };
+    this.checkCurrentSection = throttle(this.checkCurrentSection.bind(this), 100);
   }
 
-  defaultProps = {
-    offset: 2,
+  scrollToTarget = (id) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+        inline: "nearest",
+      });
+    }
   };
 
-  timer;
-
-  spy() {
-    const items = this.props.ids
-      .map((id) => {
-        const element = document.getElementById(id);
-        if (element) {
-          return {
-            inView: this.isInView(element),
-            element,
-          };
-        } else {
-          return;
+  checkCurrentSection = () => {
+    for (let id of this.props.ids.map((item) => item.id)) {
+      const element = document.getElementById(id);
+      if (element) {
+        const rect = element.getBoundingClientRect();
+        if (rect.top >= 0 && rect.bottom <= window.innerHeight) {
+          this.setState({ currentSection: id });
+          break;
         }
-      })
-      .filter((item) => item);
-
-    const firstTrueItem = items.find((item) => !!item && item.inView);
-
-    if (!firstTrueItem) {
-      return; // dont update state
-    } else {
-      const update = items.map((item) => {
-        return { ...item, inView: item === firstTrueItem };
-      });
-
-      this.setState({ items: update });
+      }
     }
-  }
+  };
 
   componentDidMount() {
-    this.timer = window.setInterval(() => this.spy(), SPY_INTERVAL);
+    window.addEventListener('scroll', this.checkCurrentSection);
   }
 
   componentWillUnmount() {
-    window.clearInterval(this.timer);
+    window.removeEventListener('scroll', this.checkCurrentSection);
   }
-
-  isInView = (element) => {
-    if (!element) {
-      return false;
-    }
-    const { offset } = this.props;
-    const rect = element.getBoundingClientRect();
-
-    return rect.top >= 0 - offset && rect.bottom <= window.innerHeight + offset;
-  };
-
-  scrollTo(element) {
-    console.log(element , "element");
-
-    window.scrollTo({
-      top:  60,
-      behavior: "smooth",
-    });
-  }
-
-  // private scrollSpy() {
-  //   const items = this.props.ids
-  //     .map(id => {
-  //       const element = document.getElementById(id);
-  //       if (element) {
-  //         return {
-  //           inView: this.isInView(element),
-  //           element
-  //         } as SpyItem;
-  //       } else {
-  //         return;
-  //       }
-  //     })
-  //     .filter(item => item);
-
-  //   const firstTrueItem = items.find(item => !!item && item.inView);
-
-  //   if (!firstTrueItem) {
-  //     return; // dont update state
-  //   } else {
-  //     const update = items.map(item => {
-  //       return { ...item, inView: item === firstTrueItem } as SpyItem;
-  //     });
-
-  //     this.setState({ items: update });
-  //   }
-  // }
 
   render() {
     const {
@@ -138,9 +81,7 @@ class Scrollspy extends React.Component {
       itemClassName,
       ids
     } = this.props;
-    console.log(this.props , "SSS");
-    const activeItem = this.state.items.find((item) => item.inView);
-    console.log(activeItem);
+
     return (
       <ul className={itemContainerClassName}>
         {ids.map((item, k) => {
@@ -149,14 +90,14 @@ class Scrollspy extends React.Component {
               className={
                 itemClassName + (item.inView ? ` ${activeItemClassName}` : "")
               }
-              key={k}
+              key={item.id}
               onClick={(e) => {
                 e.preventDefault();
-                this.scrollTo(item.element);
+                this.scrollToTarget(item.id);
                 window.history.pushState(null, "", `#${item.id}`);
               }}
-              isActive={item.inView ? "true" : "false"}
-              aeria-current={item.inView ? "true" : "false"}
+              isActive={this.state.currentSection === item.id ? "true" : "false"}
+              aeria-current={this.state.currentSection === item.id ? "true" : "false"}
             >
               <a
                 data-scroll-to={`#${item.id}`}
@@ -174,8 +115,3 @@ class Scrollspy extends React.Component {
 }
 
 export default Scrollspy;
-
-// <Scrollspy ids={["One", "Two", "Three", "Four"]}
-//   itemContainerClassName="scrollSpyContainer"
-//   activeItemClassName="active"
-//   itemClassName="spyItemClass" />

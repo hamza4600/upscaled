@@ -41,7 +41,6 @@ const AsideBar = ({ title = "Contents", contentArray }) => (
                     itemContainerClassName="aside-title"
                     activeItemClassName="active"
                     itemClassName="aside-title"
-                    // ids={contentArray.map((item, index) => item.id)}
                     ids={contentArray}
                 />
             </Suspense>

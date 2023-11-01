@@ -23,7 +23,7 @@ const RootSideBar = ({
   showSideMenu,
   closeSideMenu,
   navItemList,
-  isCollection,
+  isCollection = false,
   subDropdown,
 }) => {
 
@@ -123,10 +123,9 @@ const RootSideBar = ({
             {(isTablet || isCollection) && (
               <>
                 <UL
+                  show = {isCollection || isTablet }
                   style={{
-                    marginTop: `${isCollection ? "1rem" : "2.5rem"}`,
-                    marginBottom: "1rem",
-                    paddingLeft: "0",
+                    // marginTop: `${isCollection ? "1rem" : "2.5rem"}`,
                   }}
                 >
                   {navItemList &&

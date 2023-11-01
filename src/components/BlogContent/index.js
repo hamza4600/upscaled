@@ -115,7 +115,6 @@ const BlogContentSection = ({blog, navItems }) => {
   const ref = useRef(null);
   const { width } = useWindos();
   const isMobile = width < 768;
-  console.log(h2Tags , 'h2Tags')
 
   useEffect(() => {
     if (ref.current) {

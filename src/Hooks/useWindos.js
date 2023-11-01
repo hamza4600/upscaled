@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 const useWindos = () => {
   const [width, setWidth] = useState(0);
   const [height, setHeight] = useState(0);
-  const delay = 500;
+  const delay = 100;
 
   useEffect(() => {
     let timeoutId;

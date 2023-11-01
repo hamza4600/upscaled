@@ -149,7 +149,7 @@ const SeachBar = () => {
 
   const searchData = async (search) => {
     setLoading(true);
-    const data = await getAllData();
+    // const data = await getAllData();
 
     // clearTimeout(debouncer)
     // debouncer = setTimeout(() => {
@@ -205,12 +205,15 @@ const SeachBar = () => {
           </NavButton>
         </Dialog.Trigger>
         <Dialog.Portal>
-          <DialogContent>
-            <Dialog.Overlay className="DialogOverlay" />
+          <DialogContent
+            className="DialogContent"   
+          >
+            <Dialog.Overlay className="DialogOverlay"/>
             <Dialog.Content
               className="DialogContent"
               onInteractOutside={() => {
                 handleClear();
+                console.log("ouside click")
               }}
             >
               <SearchContainer>
