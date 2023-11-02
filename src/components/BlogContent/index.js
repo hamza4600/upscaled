@@ -8,6 +8,7 @@ import { generateId } from "../../lib/helpers";
 import Layout from "../Layout/Layout";
 import Loader from "../loader";
 
+const BackToTopButton = lazy(() => import("../BacktoTop"));
 const AsideBar = lazy(() => import("./Asidebar"));
 const SectionHeroModule = lazy(() => import("../HeroSection"));
 
@@ -173,6 +174,9 @@ const BlogContentSection = ({blog, navItems, categories }) => {
           </Suspense>
         )}
       </Root>
+      <Suspense fallback={<Loader />}>
+        <BackToTopButton />
+      </Suspense>
     </Layout>
   );
 };

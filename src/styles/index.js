@@ -141,7 +141,6 @@ export const GlobalStyle = createGlobalStyle`
         background: ${({ theme }) => theme.background};
         font-family: ${({ theme }) => theme.font} !important;
         font-style: normal;
-        transition: all 0.20s linear;
     }
     input, textarea, button {font-family: inherit}
     a {
