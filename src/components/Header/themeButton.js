@@ -5,7 +5,7 @@ import styled from "styled-components";
 import darkSvg from "../../assets/svg/DarkThumb.svg";
 import lightSvg from "../../assets/svg/LightThumb.svg";
 import ThemeSelector from "./themeSelector";
-import useDarkMode from "use-dark-mode";
+import { useTheme } from "../../styles/themeContext";
 
 const DropdownMenuContent = styled(DropdownMenu.Content)`
     min-width: 300px;
@@ -67,10 +67,9 @@ export const NavButton = styled.button`
 `;
 
 const ThemeButton = () => {
-    const darkMode = useDarkMode(false);
-    const theme = darkMode.value ? "dark" : "light";
-    const toggleTheme = darkMode.toggle;
 
+    const { darkMode, toggleTheme } = useTheme();
+    console.log("darkMode", darkMode) // this works
     return (
         <>
             <DropdownMenu.Root>
@@ -96,7 +95,7 @@ const ThemeButton = () => {
                                     img={lightSvg}
                                     title="Light"
                                     description="Light mode"
-                                    isActive={theme === "light"}
+                                    isActive={darkMode}
                                 />
                             </div>
                             <div
@@ -108,7 +107,7 @@ const ThemeButton = () => {
                                     img={darkSvg}
                                     title="Dark"
                                     description="Dark mode"
-                                    isActive={theme === "dark"}
+                                    isActive={!darkMode}
                                 />
                             </div>
                         </>

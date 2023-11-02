@@ -1,15 +1,26 @@
-import React from "react";
+import React , {createContext, useContext} from "react";
 import Them, { GlobalStyle } from ".";
 import { ThemeProvider } from "styled-components";
-import useDarkMode from "use-dark-mode";
+import usePersistedState from "../Hooks/usePersistedState";
+
+export const ThemeContext = createContext();
 
 export const ThemeProviderr = ({ children }) => {
-  const darkMode = useDarkMode(false);
+  const [darkMode, setDarkMode] = usePersistedState('darkMode', false);
 
+  const toggleTheme = () => {
+    setDarkMode(!darkMode);
+  };
+    
   return (
-      <ThemeProvider theme={darkMode.value ? Them.light : Them.dark}>
+    <ThemeContext.Provider value={{ darkMode, toggleTheme }}>
+      <ThemeProvider theme={darkMode ? Them.light : Them.dark}>
         <GlobalStyle />
         {children}
       </ThemeProvider>
+    </ThemeContext.Provider>
   );
 };
+
+export const useTheme = () => useContext(ThemeContext);
+//   const { darkMode, toggleTheme } = useTheme();
