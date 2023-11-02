@@ -51,6 +51,23 @@ export const query = graphql`
         }
       }
     }
+    allSanityCategory {
+      totalCount
+      nodes {
+        title
+        id
+        slug {
+          current
+        }
+        post {
+          slug {
+            current
+          }
+          title
+          id
+        }
+      }
+    }
   }
 `;
 
@@ -58,6 +75,7 @@ const BlogPostTemplate = (props) => {
   const { data, errors } = props;
   const blog = data && data.blog;
   const navItems = data.allSanityNavItems.nodes;
+  const categories = data.allSanityCategory.nodes;
 
   return (
     <>
@@ -74,7 +92,7 @@ const BlogPostTemplate = (props) => {
           <GraphQLErrorList errors={errors} />
         </Container>
       )}
-      {blog && <BlogContentSection blog={blog} navItems={navItems} {...props} />}
+      {blog && <BlogContentSection blog={blog} navItems={navItems} categories={categories} {...props} />}
     </>
   );
 };

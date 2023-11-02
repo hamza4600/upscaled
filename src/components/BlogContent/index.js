@@ -6,6 +6,7 @@ import { PortableText } from "@portabletext/react";
 import useWindos from "../../Hooks/useWindos";
 import { generateId } from "../../lib/helpers";
 import Layout from "../Layout/Layout";
+import Loader from "../loader";
 
 const AsideBar = lazy(() => import("./Asidebar"));
 const SectionHeroModule = lazy(() => import("../HeroSection"));
@@ -91,6 +92,7 @@ const ImgWrapper = styled.div`
     object-fit: cover;
   }
 `;
+
 const CustomImage = ({ value }) => {
   return (
     <ImgWrapper>
@@ -107,7 +109,7 @@ const myPortableTextComponents = {
   },
 };
 
-const BlogContentSection = ({blog, navItems }) => {
+const BlogContentSection = ({blog, navItems, categories }) => {
   
   const { title, body, description, mainImage, collection, slug } = blog;
 
@@ -145,13 +147,15 @@ const BlogContentSection = ({blog, navItems }) => {
         }
       });
     }
-  }, []);
+  }, []); 
 
   return (
     <Layout
       navItems={navItems}
+      categories={categories}
+      // ActiveItem={collection?.slug.current}
     >
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<Loader radius={50} />}>
         <SectionHeroModule
           title={title}
           subtitle={description}

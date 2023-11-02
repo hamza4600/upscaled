@@ -17,26 +17,23 @@ import useWindos from "../../Hooks/useWindos";
 
 const RootSideBar = ({
   children,
-  title,
   listArray,
-  parentSlug,
   showSideMenu,
   closeSideMenu,
   navItemList,
-  isCollection = false,
-  subDropdown,
+  categories,
+  ActiveItem,
 }) => {
-
+  
   const { width } = useWindos();
   const isTablet = width < 1024;
   const ref = useRef(null);
 
   const pathname = useLocation();
   const parts = pathname.pathname.split("/");
-  // const slug = parts[parts.length - 1];
-  // don,t add empty string in slug
-  const slug = parts[parts.length - 1] === "" ? parts[parts.length - 2] : parts[parts.length - 1];
-  // if click outside of sidebar, close sidebar
+
+  const slug = ActiveItem ? ActiveItem : parts[parts.length - 1] === "" ? parts[parts.length - 2] : parts[parts.length - 1];
+
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (ref.current && !ref.current.contains(event.target)) {
@@ -101,29 +98,24 @@ const RootSideBar = ({
             {/* show all titles and blogs in side bar have two variations  one for mobile and one for the desktop */}
             {!isTablet && (
               <>
-                {title && (
-                  <Title>
-                    <h2>{title}</h2>
-                  </Title>
-                )}
                 <ul id="5959">
                   {listArray?.map((item, index) => (
                     <ListItem
                       key={item._id}
                       href={item?.slug?.current}
                       label={item.title}
-                      // isActived={activeItem?._id === item._id}
+                      isActived={activeItem?.slug.current === item.slug.current}
                       slug={slug}
-                      parentSlug={parentSlug}
+                      subItems={categories}
                     />
                   ))}
                 </ul>
               </>
             )}
-            {(isTablet || isCollection) && (
+            {(isTablet) && (
               <>
                 <UL
-                  show = {isCollection || isTablet }
+                  show = {isTablet }
                   style={{
                     // marginTop: `${isCollection ? "1rem" : "2.5rem"}`,
                   }}
@@ -135,10 +127,11 @@ const RootSideBar = ({
                         key={item._id}
                         href={item?.slug?.current}
                         label={item.title}
-                        isActived={activeItem1?._id === item._id}
-                        parentSlug={""}
+                        isActived={
+                          activeItem1?.slug.current === item.slug.current
+                        }
                         onClick={closeSideMenu}
-                        subItems={subDropdown}
+                        subItems={categories}
                         slug={slug}
                       />
                     ))}

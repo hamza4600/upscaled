@@ -60,12 +60,13 @@ const BlogPostStyles = styled.article`
   }
 `;
 
-function BlogPost({collection, navItems, ...props}) {
+function BlogPost({collection, navItems, categories, ...props}) {
   const { post, title, description, headerImage, slug } = collection;
 
   return (
     <Layout
       navItems={navItems}
+      categories={categories}
     >
       <BlogPostStyles>
         {headerImage && (

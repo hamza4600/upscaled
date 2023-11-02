@@ -1,8 +1,10 @@
-import React from "react";
+import React, { Suspense, lazy } from "react";
 import styled from "styled-components";
 import useWindos from "../../Hooks/useWindos";
 import RightSide from "./RightSide";
-import LeftSide from "./LeftSide";
+import Loader from "../loader";
+// import LeftSide from "./LeftSide";
+const LeftSide = lazy(() => import("./LeftSide"));
 
 const HeaderStyles = styled.nav`
   background-color: ${(props) => props.theme.navbar.background};
@@ -16,6 +18,8 @@ const HeaderStyles = styled.nav`
   border-bottom: 1px solid ${(props) => props.theme.navbar.borderColor};
 `;
 const OpenButton = styled.button`
+  display: none;
+
   border: none;
   background-color: transparent;
 
@@ -34,6 +38,10 @@ const OpenButton = styled.button`
   &:hover {
     cursor: pointer;
     background-color: ${(props) => props.theme.navbar.hoverBackground};
+  }
+
+  @media (max-width: 1024px) {
+    display: block;
   }
 `;
 
@@ -64,7 +72,9 @@ const Header = ({ navItems, toggleSideMenu }) => {
           <RightSide navItemList={navItems} />
         </>
       )}
-      <LeftSide />
+      <Suspense fallback={ <Loader/> }>
+        <LeftSide />
+      </Suspense>
     </HeaderStyles>
   );
 };

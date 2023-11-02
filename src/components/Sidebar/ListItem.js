@@ -47,47 +47,51 @@ const ListItem = ({
   subItems,
   slug,
 }) => (
+  console.log("subItems", subItems, slug),
   <>
     <Li
       key={`${href}${label}`}
       aria-label={label}
       aria-current={isActived}
       isActived={href === slug}
+      id="55555"
     >
       <Link
-        href={
-          parentSlug
-            ? `/collection/${parentSlug}/${href}`
-            : `/collection/${href}`
-        }
+        href={`/collection/${href}`}
         title={label}
         onClick={onClick}
       >
         {label}
       </Link>
     </Li>
-    {subItems &&
+    {
+      subItems &&
       subItems.length > 0 &&
       isActived &&
+      // map only one item whos slug is equal to the slug
       subItems.map((item) => (
-        <Li
-          key={`${item.slug.current}${item.title}`}
-          aria-label={item.title}
-          aria-current={isActived}
-          isActived={item.slug.current === slug}
-        >
-          <Link
-            href={`/collection/${parentSlug}/${href}/${item.slug.current}`}
-            title={item.title}
-            onClick={onClick}
-            style={{
-              paddingLeft: "3.5rem",
-            }}
+        item.slug.current === slug &&
+        item.post.map((item) => (
+          // only show the sub items if the parent item is active 
+          <Li
+            key={`${item.slug.current}${item.title}`}
+            aria-label={item.title}
+            aria-current={isActived}
+            isActived={item.slug.current === slug}
           >
-            {item.title}
-          </Link>
-        </Li>
-      ))}
+            <Link
+              href={`/blog/${item.slug.current}`}
+              title={item.title}
+              onClick={onClick}
+              style={{
+                paddingLeft: "3.5rem",
+              }}
+            >
+              {item.title}
+            </Link>
+          </Li>
+      ))))
+    }
   </>
 );
 

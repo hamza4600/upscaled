@@ -34,10 +34,8 @@ const Layout = ({
   children,
   navItems,
   sideBarItems,
-  parentSlug,
-  sideBarTitle,
-  isCollection,
-  subDropdown,
+  categories,
+  ActiveItem,
 }) => {
   const [showSideMenu, setShowSideMenu] = React.useState(false);
 
@@ -56,14 +54,12 @@ const Layout = ({
           ) : null}
           <LayoutWrapper>
             <RootSideBar
-              title={sideBarTitle}
               listArray={sideBarItems || navItems}
-              parentSlug={parentSlug}
               showSideMenu={showSideMenu}
               closeSideMenu={toggleSideMenu}
               navItemList={navItems}
-              isCollection={isCollection}
-              subDropdown={subDropdown}
+              categories={categories}
+              ActiveItem={ActiveItem}
             />
             <MainContent>
               <div className="main-cont">{children}</div>
