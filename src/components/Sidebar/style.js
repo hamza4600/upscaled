@@ -110,8 +110,10 @@ const ClosBox = styled.div`
 `;
 
 const UL = styled.ul`
-  display: ${(props) => (props.show ? "block" : "none")};
+  display: none;
+  
   @media (max-width: 1024px) {
+    display: ${(props) => (props.show ? "block" : "none")};
     margin-top: 2rem !important;
   }
 `;
