@@ -39,7 +39,10 @@ class Scrollspy extends React.Component {
     this.state = {
       currentSection: props.ids[0].id,
     };
-    this.checkCurrentSection = throttle(this.checkCurrentSection.bind(this), 100);
+    this.checkCurrentSection = throttle(
+      this.checkCurrentSection.bind(this),
+      100,
+    );
   }
 
   scrollToTarget = (id) => {
@@ -67,20 +70,16 @@ class Scrollspy extends React.Component {
   };
 
   componentDidMount() {
-    window.addEventListener('scroll', this.checkCurrentSection);
+    window.addEventListener("scroll", this.checkCurrentSection);
   }
 
   componentWillUnmount() {
-    window.removeEventListener('scroll', this.checkCurrentSection);
+    window.removeEventListener("scroll", this.checkCurrentSection);
   }
 
   render() {
-    const {
-      itemContainerClassName,
-      activeItemClassName,
-      itemClassName,
-      ids
-    } = this.props;
+    const { itemContainerClassName, activeItemClassName, itemClassName, ids } =
+      this.props;
 
     return (
       <ul className={itemContainerClassName}>
@@ -96,8 +95,12 @@ class Scrollspy extends React.Component {
                 this.scrollToTarget(item.id);
                 window.history.pushState(null, "", `#${item.id}`);
               }}
-              isActive={this.state.currentSection === item.id ? "true" : "false"}
-              aeria-current={this.state.currentSection === item.id ? "true" : "false"}
+              isActive={
+                this.state.currentSection === item.id ? "true" : "false"
+              }
+              aeria-current={
+                this.state.currentSection === item.id ? "true" : "false"
+              }
             >
               <a
                 data-scroll-to={`#${item.id}`}

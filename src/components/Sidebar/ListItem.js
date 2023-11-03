@@ -42,57 +42,56 @@ const ListItem = ({
   href,
   label,
   isActived,
-  parentSlug = "",
   onClick,
   subItems,
   slug,
-}) => (
-  console.log("subItems", subItems, slug),
-  <>
-    <Li
-      key={`${href}${label}`}
-      aria-label={label}
-      aria-current={isActived}
-      isActived={href === slug}
-      id="55555"
-    >
-      <Link
-        href={`/collection/${href}`}
-        title={label}
-        onClick={onClick}
+  ActiveBlog,
+}) => {
+  const activeItem = ActiveBlog ? ActiveBlog : slug;
+
+  return (
+    <>
+      <Li
+        key={`${href}${label}`}
+        aria-label={label}
+        aria-current={isActived}
+        isActived={href === slug}
+        id="55555"
       >
-        {label}
-      </Link>
-    </Li>
-    {
-      subItems &&
-      subItems.length > 0 &&
-      isActived &&
-      // map only one item whos slug is equal to the slug
-      subItems.map((item) => (
-        item.slug.current === slug &&
-        item.post.map((item) => (
-          // only show the sub items if the parent item is active 
-          <Li
-            key={`${item.slug.current}${item.title}`}
-            aria-label={item.title}
-            aria-current={isActived}
-            isActived={item.slug.current === slug}
-          >
-            <Link
-              href={`/blog/${item.slug.current}`}
-              title={item.title}
-              onClick={onClick}
-              style={{
-                paddingLeft: "3.5rem",
-              }}
-            >
-              {item.title}
-            </Link>
-          </Li>
-      ))))
-    }
-  </>
-);
+        <Link href={`/collection/${href}`} title={label} onClick={onClick}>
+          {label}
+        </Link>
+      </Li>
+      {subItems &&
+        subItems.length > 0 &&
+        isActived &&
+        // map only one item whos slug is equal to the slug
+        subItems.map(
+          (item) =>
+            item.slug.current === slug &&
+            item.post.map((item) => (
+              // only show the sub items if the parent item is active
+              <Li
+                key={`${item.slug.current}${item.title}`}
+                aria-label={item.title}
+                aria-current={isActived}
+                isActived={item.slug.current === slug}
+              >
+                <Link
+                  href={`/blog/${item.slug.current}`}
+                  title={item.title}
+                  onClick={onClick}
+                  style={{
+                    paddingLeft: "3.5rem",
+                  }}
+                >
+                  {item.title}
+                </Link>
+              </Li>
+            )),
+        )}
+    </>
+  );
+};
 
 export default ListItem;

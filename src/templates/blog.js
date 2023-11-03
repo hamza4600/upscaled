@@ -92,7 +92,14 @@ const BlogPostTemplate = (props) => {
           <GraphQLErrorList errors={errors} />
         </Container>
       )}
-      {blog && <BlogContentSection blog={blog} navItems={navItems} categories={categories} {...props} />}
+      {blog && (
+        <BlogContentSection
+          blog={blog}
+          navItems={navItems}
+          categories={categories}
+          {...props}
+        />
+      )}
     </>
   );
 };

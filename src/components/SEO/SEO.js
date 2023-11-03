@@ -2,9 +2,18 @@ import React from "react";
 import PropTypes from "prop-types";
 import Helmet from "react-helmet";
 
-function SEO({ description = '', lang = 'en', meta = [], keywords = [], title, author = '' }) {
+function SEO({
+  description = "",
+  lang = "en",
+  meta = [],
+  keywords = [],
+  title,
+  author = "",
+  image
+}) {
   const metaDescription = description;
   const defaultTitle = title;
+  const defaultImage = image;
 
   return (
     <Helmet
@@ -23,6 +32,10 @@ function SEO({ description = '', lang = 'en', meta = [], keywords = [], title, a
         {
           property: `og:description`,
           content: metaDescription,
+        },
+        {
+          property: `og:image`,
+          content: defaultImage,
         },
         {
           property: `og:type`,
@@ -44,15 +57,16 @@ function SEO({ description = '', lang = 'en', meta = [], keywords = [], title, a
           name: `twitter:description`,
           content: metaDescription,
         },
-      ] .concat(
-        keywords.length > 0
-          ? {
-              name: `keywords`,
-              content: keywords.join(`, `),
-            }
-          : []
-      )
-      .concat(meta)}
+      ]
+        .concat(
+          keywords.length > 0
+            ? {
+                name: `keywords`,
+                content: keywords.join(`, `),
+              }
+            : [],
+        )
+        .concat(meta)}
     >
       {/* import fonts from Google Fonts */}
       <link

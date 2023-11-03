@@ -23,8 +23,8 @@ const RootSideBar = ({
   navItemList,
   categories,
   ActiveItem,
+  ActiveBlog,
 }) => {
-  
   const { width } = useWindos();
   const isTablet = width < 1024;
   const ref = useRef(null);
@@ -32,7 +32,11 @@ const RootSideBar = ({
   const pathname = useLocation();
   const parts = pathname.pathname.split("/");
 
-  const slug = ActiveItem ? ActiveItem : parts[parts.length - 1] === "" ? parts[parts.length - 2] : parts[parts.length - 1];
+  const slug = ActiveItem
+    ? ActiveItem
+    : parts[parts.length - 1] === ""
+    ? parts[parts.length - 2]
+    : parts[parts.length - 1];
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -99,26 +103,34 @@ const RootSideBar = ({
             {!isTablet && (
               <>
                 <ul id="5959">
-                  {listArray?.map((item, index) => (
-                    <ListItem
-                      key={item._id}
-                      href={item?.slug?.current}
-                      label={item.title}
-                      isActived={activeItem?.slug.current === item.slug.current}
-                      slug={slug}
-                      subItems={categories}
-                    />
-                  ))}
+                  {listArray?.map(
+                    (item, index) =>
+                      item.slug.current === slug && (
+                        <ListItem
+                          key={item._id}
+                          href={item?.slug?.current}
+                          label={item.title}
+                          isActived={
+                            activeItem?.slug.current === item.slug.current
+                          }
+                          slug={slug}
+                          subItems={categories}
+                          ActiveBlog={ActiveBlog}
+                        />
+                      ),
+                  )}
                 </ul>
               </>
             )}
-            {(isTablet) && (
+            {isTablet && (
               <>
                 <UL
-                  show = {isTablet }
-                  style={{
-                    // marginTop: `${isCollection ? "1rem" : "2.5rem"}`,
-                  }}
+                  show={isTablet}
+                  style={
+                    {
+                      // marginTop: `${isCollection ? "1rem" : "2.5rem"}`,
+                    }
+                  }
                 >
                   {navItemList &&
                     Array.isArray(navItemList) &&

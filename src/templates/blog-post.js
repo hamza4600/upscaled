@@ -69,7 +69,7 @@ const BlogPostTemplate = (props) => {
   const collection = data && data.collection;
   const navItems = data.allSanityNavItems.nodes;
   const categories = data.allSanityCategory.nodes;
-  
+
   return (
     <>
       {errors && <SEO title="GraphQL Error" />}
@@ -85,7 +85,14 @@ const BlogPostTemplate = (props) => {
           <GraphQLErrorList errors={errors} />
         </Container>
       )}
-      {collection && <BlogPost collection={collection} navItems={navItems} categories={categories} {...props} />}
+      {collection && (
+        <BlogPost
+          collection={collection}
+          navItems={navItems}
+          categories={categories}
+          {...props}
+        />
+      )}
     </>
   );
 };

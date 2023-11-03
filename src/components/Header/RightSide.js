@@ -123,7 +123,7 @@ const RightItem = ({ name, link, description, isActive }) => {
   );
 };
 
-const RightSide = ({ navIcon, navItemList }) => {
+const RightSide = ({ navIcon, navItemList, ActiveItem }) => {
   const location = useLocation();
 
   const isActive = (name) => {
@@ -134,7 +134,11 @@ const RightSide = ({ navIcon, navItemList }) => {
     <RightSideWrapper>
       <LogoWrapepr>
         <Link href="/">
-          {navIcon ? <img src={navIcon} alt="logo" loading="lazy" /> : <DummyIcon />}
+          {navIcon ? (
+            <img src={navIcon} alt="logo" loading="lazy" />
+          ) : (
+            <DummyIcon />
+          )}
         </Link>
       </LogoWrapepr>
       <div className="row">
@@ -144,7 +148,11 @@ const RightSide = ({ navIcon, navItemList }) => {
             name={item.title}
             link={item.href}
             description={item.description}
-            isActive={isActive(item.slug?.current)}
+            isActive={
+              ActiveItem
+                ? ActiveItem === item.slug?.current
+                : isActive(item.slug?.current)
+            }
           />
         ))}
       </div>

@@ -18,7 +18,8 @@ module.exports = {
       options: {
         ...clientConfig.sanity,
         // token: process.env.SANITY_READ_TOKEN,
-        token: "sksgYm8FP8rN9KiMFN6fTNmXAUNnJL4iPy8KGEvpKurKe913SFdcIdVYWtRhDghT8b5Z499hbfnbeQTS9YZIVcfssQw0j3GUgfAkF3pvlmHeQkfbKlIrvseeWTikZLjj8C5yg213L1eRNbU2CFUpCt5e4flrzAFlvLAGURJrHJ8TCBaapKo1",
+        token:
+          "sksgYm8FP8rN9KiMFN6fTNmXAUNnJL4iPy8KGEvpKurKe913SFdcIdVYWtRhDghT8b5Z499hbfnbeQTS9YZIVcfssQw0j3GUgfAkF3pvlmHeQkfbKlIrvseeWTikZLjj8C5yg213L1eRNbU2CFUpCt5e4flrzAFlvLAGURJrHJ8TCBaapKo1",
         watchMode: !isProd,
         overlayDrafts: !isProd,
       },

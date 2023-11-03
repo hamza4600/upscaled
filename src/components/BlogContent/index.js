@@ -110,8 +110,7 @@ const myPortableTextComponents = {
   },
 };
 
-const BlogContentSection = ({blog, navItems, categories }) => {
-  
+const BlogContentSection = ({ blog, navItems, categories }) => {
   const { title, body, description, mainImage, collection, slug } = blog;
 
   const [h2Tags, setH2Tags] = useState([]);
@@ -148,13 +147,14 @@ const BlogContentSection = ({blog, navItems, categories }) => {
         }
       });
     }
-  }, []); 
+  }, []);
 
   return (
     <Layout
       navItems={navItems}
       categories={categories}
-      // ActiveItem={collection?.slug.current}
+      ActiveItem={collection?.slug.current}
+      ActiveBlog={slug.current}
     >
       <Suspense fallback={<Loader radius={50} />}>
         <SectionHeroModule

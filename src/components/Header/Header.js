@@ -55,7 +55,7 @@ const MenuIcons = () => (
   </svg>
 );
 
-const Header = ({ navItems, toggleSideMenu }) => {
+const Header = ({ navItems, toggleSideMenu, ActiveItem }) => {
   const { width } = useWindos();
   const isTablet = width < 1024;
 
@@ -69,10 +69,10 @@ const Header = ({ navItems, toggleSideMenu }) => {
         </>
       ) : (
         <>
-          <RightSide navItemList={navItems} />
+          <RightSide navItemList={navItems} ActiveItem={ActiveItem} />
         </>
       )}
-      <Suspense fallback={ <Loader/> }>
+      <Suspense fallback={<Loader />}>
         <LeftSide />
       </Suspense>
     </HeaderStyles>

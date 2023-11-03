@@ -5,18 +5,18 @@ import SeachBar from "./Search";
 import ThemeButton from "./themeButton";
 
 const LeftSideWrapper = styled.div`
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
 `;
 
 const LeftSide = () => (
-    <LeftSideWrapper>
-            <SeachBar />
-            <ThemeButton />
-    </LeftSideWrapper>
+  <LeftSideWrapper>
+    <SeachBar />
+    <ThemeButton />
+  </LeftSideWrapper>
 );
 
 export default LeftSide;

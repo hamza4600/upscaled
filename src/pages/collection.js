@@ -9,9 +9,7 @@ const CollectionPage = ({ data }) => {
   const navItems = data.allSanityNavItems.nodes;
 
   return (
-    <Layout 
-      navItems={navItems}
-    >
+    <Layout navItems={navItems}>
       <Suspense fallback={<div>Loading...</div>}>
         <ArticleGrid articles={posts} />
       </Suspense>

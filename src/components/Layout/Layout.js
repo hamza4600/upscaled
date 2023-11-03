@@ -36,6 +36,7 @@ const Layout = ({
   sideBarItems,
   categories,
   ActiveItem,
+  ActiveBlog,
 }) => {
   const [showSideMenu, setShowSideMenu] = React.useState(false);
 
@@ -49,7 +50,11 @@ const Layout = ({
         <ContainerWrapper>
           {navItems ? (
             <HeaderStyle>
-              <Header navItems={navItems} toggleSideMenu={toggleSideMenu} />
+              <Header
+                navItems={navItems}
+                toggleSideMenu={toggleSideMenu}
+                ActiveItem={ActiveItem}
+              />
             </HeaderStyle>
           ) : null}
           <LayoutWrapper>
@@ -60,6 +65,7 @@ const Layout = ({
               navItemList={navItems}
               categories={categories}
               ActiveItem={ActiveItem}
+              ActiveBlog={ActiveBlog}
             />
             <MainContent>
               <div className="main-cont">{children}</div>
