@@ -50,6 +50,11 @@ const lightThem = {
     desColor: "#626F86",
     bgColor: "#fff",
   },
+  topButton: {
+    background: "#091E420F",
+    color: "#172B4D",
+    hoverBackground: "#091E4224",
+  },
   breakpoints: {
     mobile: "only screen and (max-width: 48em)",
     tablet: "only screen and (max-width: 56.25em)",
@@ -112,6 +117,11 @@ const darkThem = {
     h1Color: "#B6C2CF",
     desColor: "#8C9BAB",
     bgColor: "#22272B",
+  },
+  topButton: {
+    background: "#A1BDD914",
+    color: "#B6C2CF",
+    hoverBackground: "#A6C5E229",
   },
   breakpoints: {
     mobile: "only screen and (max-width: 48em)",

@@ -7,16 +7,16 @@ const ScrollToTop = styled.button`
   bottom: 20px;
   right: 20px;
   cursor: pointer;
-  background-color: #000;
-  color: #fff;
+  background-color: ${({ theme }) => theme.topButton.background};
+  color: ${({ theme }) => theme.topButton.color};
   padding: 10px 20px;
   border-radius: 5px;
-  opacity: 0.7;
   transition: opacity 0.3s ease-in-out;
   border: none;
 
   &:hover {
     opacity: 1;
+    background-color: ${({ theme }) => theme.topButton.hoverBackground};
   }
 `;
 
