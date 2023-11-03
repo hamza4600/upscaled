@@ -27,7 +27,6 @@
     "gatsby-plugin-react-helmet": "^6.12.0",
     "gatsby-plugin-styled-components": "^6.12.0",
     "gatsby-source-sanity": "^7.9.1",
-    "gatsby-styled-components-dark-mode": "^2.0.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-helmet": "^6.1.0",
