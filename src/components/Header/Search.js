@@ -33,8 +33,6 @@ const DialogContent = styled.div`
   align-items: stretch;
   justify-content: center;
 
-  transition: transform 0.3s ease-in-out;
-
   .DialogOverlay {
     position: fixed;
     top: 0;

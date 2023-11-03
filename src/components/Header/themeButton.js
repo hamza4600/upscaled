@@ -41,7 +41,6 @@ export const NavButton = styled.button`
   font-size: 14px;
   text-transform: capitalize;
   color: ${(props) => props.theme.navbar.color};
-  transition: background-color 0.3s ease-in-out;
 
   i {
     margin-right: 2px;

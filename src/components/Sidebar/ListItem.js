@@ -6,7 +6,6 @@ const Li = styled.li`
   position: relative;
   display: flex;
   cursor: pointer;
-  transition: background-color 0.2s ease-in-out;
   text-transform: capitalize;
 
   background-color: ${(props) =>

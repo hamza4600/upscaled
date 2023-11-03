@@ -1,18 +1,18 @@
 import { useState, useEffect } from "react";
 
 const usePersistedState = (key, defaultValue) => {
-  
+  const isSSR = typeof window === "undefined";
+
   const [state, setState] = useState(() => {
-    let storedValue = defaultValue;
-    if (typeof window !== 'undefined') {
-      storedValue = localStorage.getItem(key);
-      storedValue = storedValue !== null ? JSON.parse(storedValue) : defaultValue;
+    if (!isSSR) {
+      const storedValue = localStorage.getItem(key);
+      return storedValue !== null ? JSON.parse(storedValue) : defaultValue;
     }
-    return storedValue;
+    return defaultValue;
   });
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
+    if (!isSSR) {
       localStorage.setItem(key, JSON.stringify(state));
     }
   }, [key, state]);
