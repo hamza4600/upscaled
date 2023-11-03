@@ -66,8 +66,8 @@ export const NavButton = styled.button`
 `;
 
 const ThemeButton = () => {
-  const { darkMode, toggleTheme } = useTheme();
-  console.log("darkMode", darkMode); // this works
+  const { theme, toggleTheme } = useTheme();
+  console.log("darkMode", theme); // this works
   return (
     <>
       <DropdownMenu.Root>
@@ -90,7 +90,7 @@ const ThemeButton = () => {
                   img={lightSvg}
                   title="Light"
                   description="Light mode"
-                  isActive={darkMode}
+                  isActive={theme === "light"}
                 />
               </div>
               <div
@@ -102,7 +102,7 @@ const ThemeButton = () => {
                   img={darkSvg}
                   title="Dark"
                   description="Dark mode"
-                  isActive={!darkMode}
+                  isActive={theme === "dark"}
                 />
               </div>
             </>

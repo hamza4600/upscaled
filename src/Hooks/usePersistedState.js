@@ -1,31 +1,22 @@
-import { useState, useLayoutEffect } from "react";
+import { useState, useLayoutEffect } from 'react';
 
-const usePersistedState = (key, defaultValue) => {
-  const [state, setState] = useState(() => {
-    if (typeof window !== 'undefined') {
-      const storedValue = localStorage.getItem(key);
-      return storedValue !== null ? JSON.parse(storedValue) : defaultValue;
-    } else {
-      return defaultValue;
-    }
-  });
-
-  // Set the initial value in local storage if it doesn't exist
-  useLayoutEffect(() => {
-    if (typeof window !== 'undefined') {
-      if (!localStorage.getItem(key)) {
-        localStorage.setItem(key, JSON.stringify(defaultValue));
-      }
-    }
-  }, [key, defaultValue]);
+const useThemee = () => {
+  const [theme, setTheme] = useState('light');
 
   useLayoutEffect(() => {
-    if (typeof window !== 'undefined') {
-      localStorage.setItem(key, JSON.stringify(state));
+    const storedTheme = localStorage.getItem('theme');
+    if (storedTheme) {
+      setTheme(storedTheme);
     }
-  }, [state, key]);
+  }, []);
 
-  return [state, setState];
+  const toggleTheme = () => {
+    const newTheme = theme === 'light' ? 'dark' : 'light';
+    setTheme(newTheme);
+    localStorage.setItem('theme', newTheme);
+  };
+
+  return { theme, toggleTheme };
 };
 
-export default usePersistedState;
+export default useThemee;
