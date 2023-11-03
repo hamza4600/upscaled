@@ -12,7 +12,13 @@ module.exports = {
     "gatsby-plugin-styled-components",
     "gatsby-plugin-react-helmet",
     "gatsby-plugin-image",
-    // "gatsby-plugin-dark-mode",
+    {
+      resolve: `gatsby-styled-components-dark-mode`,
+      options: {
+        light: require(`${__dirname}/src/theme.js`).lightTheme,
+        dark: require(`${__dirname}/src/theme.js`).darkTheme,
+      },
+    },
     {
       resolve: "gatsby-source-sanity",
       options: {
