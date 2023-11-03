@@ -160,7 +160,7 @@ const BlogContentSection = ({ blog, navItems, categories }) => {
         <SectionHeroModule
           title={title}
           subtitle={description}
-          image={mainImage.asset.url}
+          // image={mainImage.asset.url}  
         />
       </Suspense>
       <Root>

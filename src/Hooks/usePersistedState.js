@@ -1,21 +1,29 @@
-import { useState, useEffect } from "react";
+import { useState, useLayoutEffect } from "react";
 
 const usePersistedState = (key, defaultValue) => {
-  const isSSR = typeof window === "undefined";
-
   const [state, setState] = useState(() => {
-    if (!isSSR) {
+    if (typeof window !== 'undefined') {
       const storedValue = localStorage.getItem(key);
       return storedValue !== null ? JSON.parse(storedValue) : defaultValue;
+    } else {
+      return defaultValue;
     }
-    return defaultValue;
   });
 
-  useEffect(() => {
-    if (!isSSR) {
+  // Set the initial value in local storage if it doesn't exist
+  useLayoutEffect(() => {
+    if (typeof window !== 'undefined') {
+      if (!localStorage.getItem(key)) {
+        localStorage.setItem(key, JSON.stringify(defaultValue));
+      }
+    }
+  }, [key, defaultValue]);
+
+  useLayoutEffect(() => {
+    if (typeof window !== 'undefined') {
       localStorage.setItem(key, JSON.stringify(state));
     }
-  }, [key, state]);
+  }, [state, key]);
 
   return [state, setState];
 };
