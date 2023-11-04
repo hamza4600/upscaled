@@ -165,7 +165,7 @@ const BlogContentSection = ({ blog, navItems, categories }) => {
       </Suspense>
       <Root>
         <BlogContainer ref={ref} className="blog-content">
-          <h1>{title}</h1>
+          {/* <h1>{title}</h1> */}
           <PortableText value={body} serializers={myPortableTextComponents} />
         </BlogContainer>
         {!isMobile && (
